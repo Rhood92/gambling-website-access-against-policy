@@ -74,7 +74,7 @@ DeviceFileEvents
 | where ActionType in ("FileDeleted", "FileModified")
 | project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, FolderPath
 
-// Detect Firefox Private Browsing (Incognito) Mode Usage
+// Detect Firefox Private Browsing (Incognito) Mode Usage, however nothing queried for this incident!!
 DeviceProcessEvents
 | where ProcessCommandLine has "firefox.exe -private"
 | project Timestamp, DeviceName, AccountName, ActionType, ProcessCommandLine
