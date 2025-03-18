@@ -67,7 +67,7 @@ DeviceProcessEvents
 | where ProcessCommandLine has "ipconfig /flushdns"
 | project Timestamp, DeviceName, AccountName, ActionType, ProcessCommandLine
 
-// Detect if user has deleted browsing history in Firefox
+// Detect if user has deleted browsing history in Firefox, yielded no results!!
 DeviceFileEvents
 | where FolderPath has "Mozilla\\Firefox\\Profiles"
 | where FileName has "places.sqlite"
