@@ -9,7 +9,7 @@ John Doe has been previously warned about accessing gambling websites such as Fa
 ## Steps the "Bad Actor" Took to Create Logs and IoCs  
 
 1. **Access Gambling Websites on Work Computer:**  
-   - John visits gambling websites like `fanduel.com` and `draftkings.com` every Saturday before Sunday NFL games.  
+   - John visits gambling websites like `fanduel.com` and `draftkings.com` often before the Sunday NFL games.  
    - He places sports bets and enters parlays while at work.  
 
 2. **Deletes Browser History to Cover Tracks:**  
