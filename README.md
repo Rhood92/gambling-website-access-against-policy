@@ -56,28 +56,48 @@ John Doe aka labuserich has been previously warned about accessing gambling webs
 ## Related Queries  
 
 ```kql
-// Detect browsing activity to known gambling sites using Firefox
+// Detect browsing activity for fanduel.com & draftkings.com using Firefox
 DeviceNetworkEvents
-| where InitiatingProcessFileName == "firefox.exe"
-| where RemoteUrl has_any ("fanduel.com", "draftkings.com", "betmgm.com", "caesars.com", "bet365.com")
+| where RemoteUrl has_any ("fanduel.com", "draftkings.com")
 | project Timestamp, DeviceName, InitiatingProcessAccountName, RemoteUrl, RemoteIP
+| order by Timestamp desc 
 
 // Detect if user is attempting to clear DNS cache
 DeviceProcessEvents
-| where ProcessCommandLine has "ipconfig /flushdns"
-| project Timestamp, DeviceName, AccountName, ActionType, ProcessCommandLine
+|where DeviceName == "rich-mde-test"
+| where ProcessCommandLine contains " /flushdns"
+| project Timestamp, DeviceName, ActionType, FileName, ProcessCommandLine, AccountName
+| order by Timestamp desc 
+
 
 // Detect if user has deleted browsing history in Firefox, yielded no results!!
 DeviceFileEvents
+| where DeviceName == "rich-mde-test"
 | where FolderPath has "Mozilla\\Firefox\\Profiles"
 | where FileName has "places.sqlite"
 | where ActionType in ("FileDeleted", "FileModified")
 | project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, FolderPath
 
-// Detect Firefox Private Browsing (Incognito) Mode Usage, however nothing queried for this incident!!
+//Option #2: Doesn't pinpoint the "deleted browsing history" in Firefox, but it does show that showing was deleted within the browser!!
+DeviceFileEvents
+| where DeviceName == "rich-mde-test"
+| where FolderPath contains "firefox"
+| where ActionType in ("FileDeleted", "FileModified")
+| project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, FolderPath
+| order by Timestamp desc 
+
+// Detect Firefox Private Browsing (Incognito) Mode Usage, however, nothing queried for this incident!!
 DeviceProcessEvents
+| where DeviceName == "rich-mde-test"
 | where ProcessCommandLine has "firefox.exe -private"
 | project Timestamp, DeviceName, AccountName, ActionType, ProcessCommandLine
+
+// Tried to query private browsing, but no results, however, I can still see that the event is logged even though I viewed it in Private
+DeviceProcessEvents
+|where DeviceName == "rich-mde-test"
+| where ProcessCommandLine has "firefox.exe"
+| project Timestamp, DeviceName, AccountName, ActionType, ProcessCommandLine
+| order by Timestamp desc 
 ```
 
 ---
