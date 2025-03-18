@@ -17,8 +17,7 @@ John Doe aka labuserich has been previously warned about accessing gambling webs
    - After placing his bets, John manually deletes his browsing history from Firefox.  
    - Alternatively, he uses private/incognito mode to prevent history from being stored.  
 
-3. **Attempts to Bypass Security Controls:**  
-   - John may use VPN services or proxy websites to hide his traffic.  
+3. **Attempts to Bypass Security Controls:**   
    - He may clear DNS cache using the following command in CMD to remove traces:  
      ```cmd
      ipconfig /flushdns
