@@ -2,7 +2,7 @@
 **John Doe Accessing Gambling Sites Despite Prior Warnings & Deleting Browser History**  
 
 ## Reason for the Hunt  
-John Doe has been previously warned about accessing gambling websites such as FanDuel and DraftKings during work hours. His manager suspects that he is still visiting these sites and actively deleting his browser history to cover his tracks. The security team has been tasked with conducting an investigation to confirm whether John is violating company policy.  
+John Doe aka labuserich has been previously warned about accessing gambling websites such as FanDuel and DraftKings during work hours. His manager suspects that he is still visiting these sites and actively deleting his browser history to cover his tracks. The security team has been tasked with conducting an investigation to confirm whether John is violating company policy.  
 
 ---
 
