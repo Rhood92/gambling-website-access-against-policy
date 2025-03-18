@@ -10,11 +10,11 @@ John Doe has been previously warned about accessing gambling websites such as Fa
 ## Steps the "Bad Actor" Took to Create Logs and IoCs  
 
 1. **Access Gambling Websites on Work Computer:**  
-   - John visits gambling websites like `fanduel.com` and `draftkings.com` every Saturday before Sunday NFL games.  
+   - John visits gambling websites like `fanduel.com` and `draftkings.com` before the Sunday NFL games.  
    - He places sports bets and enters parlays while at work.  
 
 2. **Deletes Browser History to Cover Tracks:**  
-   - After placing his bets, John manually deletes his browsing history from Google Chrome.  
+   - After placing his bets, John manually deletes his browsing history from Firefox.  
    - Alternatively, he uses private/incognito mode to prevent history from being stored.  
 
 3. **Attempts to Bypass Security Controls:**  
@@ -56,8 +56,9 @@ John Doe has been previously warned about accessing gambling websites such as Fa
 ## Related Queries  
 
 ```kql
-// Detect browsing activity to known gambling sites
+// Detect browsing activity to known gambling sites using Firefox
 DeviceNetworkEvents
+| where InitiatingProcessFileName == "firefox.exe"
 | where RemoteUrl has_any ("fanduel.com", "draftkings.com", "betmgm.com", "caesars.com", "bet365.com")
 | project Timestamp, DeviceName, InitiatingProcessAccountName, RemoteUrl, RemoteIP
 
@@ -66,15 +67,16 @@ DeviceProcessEvents
 | where ProcessCommandLine has "ipconfig /flushdns"
 | project Timestamp, DeviceName, AccountName, ActionType, ProcessCommandLine
 
-// Detect if user has deleted browsing history in Chrome
+// Detect if user has deleted browsing history in Firefox
 DeviceFileEvents
-| where FolderPath has "Chrome\\User Data\\Default\\History"
+| where FolderPath has "Mozilla\\Firefox\\Profiles"
+| where FileName has "places.sqlite"
 | where ActionType in ("FileDeleted", "FileModified")
 | project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, FolderPath
 
-// Detect Chrome Incognito Mode Usage
+// Detect Firefox Private Browsing (Incognito) Mode Usage
 DeviceProcessEvents
-| where ProcessCommandLine has "chrome.exe --incognito"
+| where ProcessCommandLine has "firefox.exe -private"
 | project Timestamp, DeviceName, AccountName, ActionType, ProcessCommandLine
 ```
 
