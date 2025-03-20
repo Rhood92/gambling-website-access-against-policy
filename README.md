@@ -77,7 +77,7 @@ DeviceFileEvents
 | where ActionType in ("FileDeleted", "FileModified")
 | project Timestamp, DeviceName, InitiatingProcessAccountName, ActionType, FolderPath
 
-//Option #2: Doesn't pinpoint the "deleted browsing history" in Firefox, but it does show that showing was deleted within the browser!!
+//Option #2: Doesn't pinpoint the "deleted browsing history" in Firefox, but it does show that data was deleted within the browser!!
 DeviceFileEvents
 | where DeviceName == "rich-mde-test"
 | where FolderPath contains "firefox"
@@ -91,7 +91,7 @@ DeviceProcessEvents
 | where ProcessCommandLine has "firefox.exe -private"
 | project Timestamp, DeviceName, AccountName, ActionType, ProcessCommandLine
 
-// Tried to query private browsing, but no results, however, I can still see that the event is logged even though I viewed it in Private
+// Tried to query private browsing, but no results, however, with this query I can still see that an event was logged, as I viewed the site in Private mode at that specific time
 DeviceProcessEvents
 |where DeviceName == "rich-mde-test"
 | where ProcessCommandLine has "firefox.exe"
